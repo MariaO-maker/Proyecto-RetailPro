@@ -2,11 +2,14 @@
 -- Base de datos: Ventas_Tech_DB
 -- Descripción: Creación de modelo dimensional, carga de datos y validación.
 -- ====================================================================
+-- Creación idempotente de la Base de Datos
 
+DROP DATABASE IF EXISTS Ventas_Tech_DB;
+GO
 CREATE DATABASE Ventas_Tech_DB;
-
+GO
 USE Ventas_Tech_DB;
-
+GO
 -- ====================================================================
 -- DROP TABLES 
 -- ====================================================================
@@ -14,7 +17,7 @@ DROP TABLE IF EXISTS ventas;
 DROP TABLE IF EXISTS productos;
 DROP TABLE IF EXISTS clientes;
 DROP TABLE IF EXISTS categorias;
-
+GO
 -- ====================================================================
 -- CREATE TABLES
 -- ====================================================================
@@ -25,7 +28,8 @@ CREATE TABLE categorias (
 id_categoria INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 nombre_categoria VARCHAR(50) NOT NULL,
 descripcion VARCHAR(200)
-)
+);
+GO
 
 -- 2. Tabla independiente: Clientes
 
@@ -35,7 +39,8 @@ nombre VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL UNIQUE,
 ciudad VARCHAR(50),
 fecha_registro DATE NOT NULL
-)
+);
+GO
 
 -- 3. Tabla dependiente de Categorías: Productos
 
@@ -47,7 +52,8 @@ precio DECIMAL(10,2) NOT NULL,
 stock INT DEFAULT 0,
 activo BIT DEFAULT 1
 CONSTRAINT FK_productos_categorias FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
-)
+);
+GO
 
 -- 4. Tabla de Hechos (depende de Clientes y Productos)
 
@@ -61,7 +67,8 @@ fecha_venta DATE NOT NULL,
 
 CONSTRAINT FK_ventas_clientes FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
 CONSTRAINT FK_ventas_productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
-)
+);
+GO
 
 -- ====================================================================
 -- INSERT DATA 
@@ -78,7 +85,7 @@ INSERT INTO categorias (id_categoria, nombre_categoria, descripcion) VALUES
   (4, 'Almacenamiento', 'Discos y memorias');
 
 SET IDENTITY_INSERT categorias OFF;
-
+GO
 
 
 -- INSERTAR DATOS EN CLIENTES
@@ -93,7 +100,7 @@ INSERT INTO clientes (id_cliente, nombre, email, ciudad, fecha_registro) VALUES
   (5, 'Laura Torres', 'laura@mail.com',  'Tucumán',      '2024-03-01');
 
 SET IDENTITY_INSERT clientes OFF;
-
+GO
 
 -- INSERTAR DATOS EN PRODUCTOS
 
@@ -108,7 +115,7 @@ INSERT INTO productos (id_producto, nombre_producto, id_categoria, precio, stock
   (6, 'Teclado Mecánico',   2,   95.00, 40, 1);
 
 SET IDENTITY_INSERT productos OFF;
-
+GO
 
 -- INSERTAR DATOS EN VENTAS (Tabla de Hechos)
 
@@ -127,7 +134,7 @@ INSERT INTO ventas (id_venta, id_cliente, id_producto, cantidad, precio_unitario
   (10, 5, 3, 2,  450.00, '2024-03-15');
 
 SET IDENTITY_INSERT ventas OFF;
-
+GO
 
 -- ====================================================================
 -- VALIDACIÓN
@@ -137,3 +144,4 @@ SELECT * FROM categorias;   -- esperado: 4 filas
 SELECT * FROM clientes;     -- esperado: 5 filas
 SELECT * FROM productos;    -- esperado: 6 filas
 SELECT * FROM ventas;       -- esperado: 10 filas
+GO
