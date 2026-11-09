@@ -1,0 +1,1 @@
+-- Consulta 1 — Resumen ejecutivo mensual: Total facturado, cantidad de pedidos y ticket promedio, agrupados por mes.
