@@ -1,7 +1,8 @@
 # RetailPro - Consultas de Negocio y Análisis Comercial 
 
 ## Contexto del Proyecto
-El equipo comercial de RetailPro requiere respuestas rápidas y métricas concretas de cara a la reunión de planificación del próximo lunes. En lugar de revisar registros masivos o filas individuales de la base de datos, este módulo implementa consultas analíticas enfocadas en extraer resúmenes ejecutivos, rankings de productos, identificación de clientes recurrentes y segmentación de rendimiento por encima o por debajo del promedio.
+El equipo comercial de RetailPro requiere respuestas rápidas y métricas concretas de cara a una reunión de planificación. 
+Este módulo implementa consultas analíticas enfocadas en extraer resúmenes ejecutivos, rankings de productos, identificación de clientes recurrentes y segmentación de rendimiento por encima o por debajo del promedio.
 
 ## Descripción del Repositorio y Base de Datos
 - **Base de Datos:** `Ventas_Tech_DB` (creada bajo los estándares del modelo dimensional).
