@@ -81,3 +81,5 @@ GO
 -- 1. El producto 1 (Laptop Pro 15) concentra el mayor porcentaje de la facturación total del trimestre por su alto valor unitario ($1200.00).
 -- 2. Los accesorios de menor costo (como el Mouse Inalámbrico) registran un alto volumen de unidades vendidas, pero menor impacto en el total facturado.
 -- 3. Existen clientes que realizaron más de una compra en el período (recurrentes), lo que evidencia oportunidades para análisis de retención.
+
+
