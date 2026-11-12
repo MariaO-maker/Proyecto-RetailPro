@@ -15,13 +15,10 @@ SELECT
     SUM(cantidad * precio_unitario) AS total_facturado,
     COUNT(id_venta) AS cantidad_pedidos,
     AVG((cantidad * precio_unitario)) AS ticket_promedio
-FROM 
-    ventas
-GROUP BY 
-    FORMAT(fecha_venta, 'yyyy-MM')
-ORDER BY 
-    mes ASC;
-    GO
+FROM ventas
+GROUP BY FORMAT(fecha_venta, 'yyyy-MM')
+ORDER BY mes ASC;
+GO
 
 -- ============================================================================================================================================================================================
 -- Consulta 2 — Ranking de productos Top 5 de id_producto por total facturado, mostrando las unidades vendidas (SUM(cantidad)) y el total generado. Usá GROUP BY id_producto, ORDER BY y TOP 5.
@@ -54,7 +51,7 @@ GO
 
 WITH FacturacionPorProducto AS (    
  SELECT id_producto,
-  SUM(cantidad * precio_unitario) AS total_generado
+ SUM(cantidad * precio_unitario) AS total_generado
  FROM ventas
  GROUP BY id_producto
 ),
@@ -69,8 +66,7 @@ SELECT f.id_producto,f.total_generado,p.promedio_facturacion,
  ELSE 'Por debajo'
  END AS clasificacion
 FROM FacturacionPorProducto f
-CROSS JOIN 
-    PromedioGeneral p
+CROSS JOIN PromedioGeneral p
 ORDER BY f.total_generado DESC;
 GO
 
