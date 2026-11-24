@@ -145,3 +145,48 @@ SELECT * FROM clientes;     -- esperado: 5 filas
 SELECT * FROM productos;    -- esperado: 6 filas
 SELECT * FROM ventas;       -- esperado: 10 filas
 GO
+
+
+-- ====================================================================
+--Dimensión geográfica (territorios) y segmentación (Extensión Mod 5)
+-- ====================================================================
+
+
+CREATE TABLE territorios (
+    id_territorio INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    region VARCHAR(50) NOT NULL,
+    pais VARCHAR(50) NOT NULL
+);
+GO
+
+ALTER TABLE clientes
+ADD segmento VARCHAR(30) NULL,
+    id_territorio INT NULL,
+    CONSTRAINT FK_clientes_territorios FOREIGN KEY (id_territorio) REFERENCES territorios(id_territorio);
+GO
+
+  
+-- Carga de datos de territorios y actualización de clientes
+-- ====================================================================
+  
+SET IDENTITY_INSERT territorios ON;
+INSERT INTO territorios (id_territorio, region, pais) VALUES
+  (1, 'Centro', 'Argentina'),
+  (2, 'Oeste',  'Argentina'),
+  (3, 'Norte',  'Argentina');
+SET IDENTITY_INSERT territorios OFF;
+GO
+
+UPDATE clientes SET segmento = 'Corporativo', id_territorio = 1 WHERE id_cliente = 1;
+UPDATE clientes SET segmento = 'PyME',        id_territorio = 1 WHERE id_cliente = 2;
+UPDATE clientes SET segmento = 'Minorista',   id_territorio = 1 WHERE id_cliente = 3;
+UPDATE clientes SET segmento = 'PyME',        id_territorio = 2 WHERE id_cliente = 4;
+UPDATE clientes SET segmento = 'Minorista',   id_territorio = 3 WHERE id_cliente = 5;
+GO
+
+
+-- VALIDACIÓN TABLA:
+-- ====================================================================
+
+SELECT * FROM territorios;  -- esperado: 3 filas
+GO
